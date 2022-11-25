@@ -31,15 +31,15 @@ async function createServer () {
   // Usually this would be implemented
   // Calls to ensure the permissions etc. are still correct
   // and dynamic scopes are set.
-  const validateFunc = async (request, session) => {
+  const validate = async (request, session) => {
     if (!session) {
       return {
-        valid: false
+        isValid: false
       }
     }
 
     const rtn = {
-      valid: true,
+      isValid: true,
       credentials: session
     }
 
@@ -56,7 +56,7 @@ async function createServer () {
     },
     appendNext: 'redirectTo',
     redirectTo: '/login',
-    validateFunc
+    validate
   })
 
   server.auth.default('session')
